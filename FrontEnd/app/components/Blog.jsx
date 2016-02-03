@@ -6,8 +6,25 @@
 import React from 'react';
 
 export default class Blog extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editing: false,
+            blogs: props.blogs
+        };
+    }
+
     render() {
-        return <div>this is a blog conponent </div>;
+        return (
+            <ul className="blogs">{this.state.blogs.map(function(blog){
+                return <li className="blog" key= {blog.id}>
+                    <p>{blog.title}</p>
+                    <p>{blog.content}</p>
+                </li>
+                }
+                )}</ul>
+        );
     }
 }
 
