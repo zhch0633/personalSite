@@ -5,18 +5,19 @@
 
 import React from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
-
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 var $ = require ('jquery');
 
 export default class Blog extends React.Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
             editing: false
-        };
-    }
+        }
+    };
 
     componentDidMount() {
         this.setState({loading:true});
@@ -41,15 +42,45 @@ export default class Blog extends React.Component {
     }
 
     render() {
+        var centerStype = {
+            background:"white",
+            position: 'relative',
+            top:'30%'
+        };
+
         if (this.state.loading) {
-            return <span>Loading...</span>;
+            return(
+                <div style={centerStype}>
+                    <CircularProgress/>
+                </div>
+            )
         }
 
-        return (
-        <RaisedButton label="Default" />
+        centerStype.textAlign = "";
+        return(
+            <div style={centerStype}>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
+                <p >{JSON.stringify(this.state.data)}</p>
 
-//        <p>{JSON.stringify(this.state.data)}</p>
-        );
+            </div>
+
+    );
     }
 }
 
