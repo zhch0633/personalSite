@@ -2,6 +2,7 @@ import uuid from 'node-uuid';
 import React from 'react';
 import Notes from './Notes.jsx';
 import Blog from './Blog.jsx';
+import AppBar from 'material-ui/lib/app-bar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -45,11 +46,15 @@ export default class App extends React.Component {
 
   render() {
     const notes = this.state.notes;
-    const blogs = this.state.blogs
+    const blogs = this.state.blogs;
 
     return (
       <div>
-        <Blog blogs = {blogs}/>
+        <AppBar
+            title="Title"
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
+        <Blog url="http://localhost:3001/api/blogs"/>
       </div>
     );
   }

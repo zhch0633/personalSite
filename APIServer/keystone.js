@@ -13,7 +13,7 @@ keystone.init({
 
 	'name': 'blogServer',
 	'brand': 'blogServer',
-	
+	'port': 3001,
 	'less': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',

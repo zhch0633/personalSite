@@ -19,6 +19,11 @@ const common = {
     path: PATHS.build,
     filename: 'bundle.js'
   },
+  externals: {
+    // require("jquery") is external and available
+    //  on the global var jQuery
+    "jquery": "jQuery"
+  },
   module: {
     loaders: [
       {
