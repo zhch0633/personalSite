@@ -4,6 +4,9 @@ import Notes from './Notes.jsx';
 import Blog from './Blog.jsx';
 import AppBar from 'material-ui/lib/app-bar';
 import Banner from './Banner.jsx';
+import NavBar from './NavBar.jsx';
+import LeftNav from 'material-ui/lib/left-nav';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 
 export default class App extends React.Component {
@@ -30,9 +33,11 @@ export default class App extends React.Component {
         picture: "http://images6.fanpop.com/image/photos/34800000/HATSUNE-MIKU-miku-hatsune-34845278-1280-800.jpg"
       }
     };
-
-
   }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.updateDimensions);
+  };
 
   render() {
     const notes = this.state.notes;
@@ -52,9 +57,14 @@ export default class App extends React.Component {
        overflow: 'hidden'
   };
 
-    var testStyle = {
+    var scrollStyle = {
        height: '100%',
+      'padding-top':'60',
       'overflow':'auto'
+    };
+
+    var navBarStyle = {
+
     };
 
     return (
@@ -64,12 +74,20 @@ export default class App extends React.Component {
             title="Title"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
         />
-        <div style={testStyle}>
-          <Blog url="http://localhost:3001/api/blogs"/>
+        <div style={scrollStyle}>
+          <LeftNav open={this.state.open}>
+            <MenuItem>Menu Item</MenuItem>
+            <MenuItem>Menu Item 2</MenuItem>
+          </LeftNav>
           <Banner banner = {this.state.banner}/>
+          <Blog url="http://localhost:3001/api/blogs"/>
         </div>
       </div>
     );
+  }
+
+  updateDimensions(){
+    this.setState({width: $(window).width(), height: $(window).height()});
   }
 
 

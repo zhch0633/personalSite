@@ -1,6 +1,5 @@
 /**
  * use this component to form a blog for show in blog site
- *
  */
 
 import React from 'react';
@@ -9,7 +8,7 @@ import CircularProgress from 'material-ui/lib/circular-progress';
 
 var $ = require ('jquery');
 
-export default class Blog extends React.Component {
+export default class BlogItem extends React.Component {
 
     constructor(props) {
         super(props);
@@ -45,7 +44,7 @@ export default class Blog extends React.Component {
         var centerStype = {
             background:"white",
             position: 'relative',
-            top:'35%'
+            top:'30%',
         };
 
         if (this.state.loading) {
@@ -80,7 +79,7 @@ export default class Blog extends React.Component {
 
             </div>
 
-    );
+        );
     }
 }
 

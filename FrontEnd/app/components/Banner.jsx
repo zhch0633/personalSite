@@ -24,16 +24,15 @@ export default class Banner extends React.Component {
         if(this.state.isPicture == true) {
             var style = {
                 position: 'absolute',
-                top:'0',
+                top:'60',
                 left:'0',
-                'z-index':'-20',
                 'margin-top':"60dp",
                 width:"100%",
                 height:'40%',
-                'max-height' :"50vw"
+                'min-height':'50wv'
             };
             var imgStyle = {
-                width:"100%",
+                'width':"100%",
                 '-webkit-background-size': 'cover',
                 '-moz-background-size': 'cover',
                 ' -o-background-size': 'cover',
