@@ -44,8 +44,7 @@ export default class Blog extends React.Component {
     render() {
         var centerStype = {
             background:"white",
-            position: 'relative',
-            top:'35%'
+            position: 'relative'
         };
 
         if (this.state.loading) {

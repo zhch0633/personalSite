@@ -2,6 +2,9 @@
  * */
 
 import React from 'react';
+import CardMedia from 'material-ui/lib/card/card-media';
+import CardHeader from 'material-ui/lib/card/card-header';
+
 
 export default class Banner extends React.Component {
 
@@ -23,24 +26,26 @@ export default class Banner extends React.Component {
         //determine if is a picture or just a color
         if(this.state.isPicture == true) {
             var style = {
-                position: 'absolute',
-                top:'60',
                 left:'0',
-                'margin-top':"60dp",
-                width:"100%",
-                height:'40%',
-                'min-height':'50wv'
+                'minHeight':'50wv'
             };
             var imgStyle = {
                 'width':"100%",
-                '-webkit-background-size': 'cover',
-                '-moz-background-size': 'cover',
-                ' -o-background-size': 'cover',
-                'background-size': 'cover'
+                'WebkitBackgroundSize': 'cover',
+                'MozBackgroundSize': 'cover',
+                'OBackgroundSize': 'cover',
+                'backgroundSize': 'cover'
             };
             return (
                 <div style={style}>
-                    <img src={this.state.picture} style= {imgStyle}/>
+                    <CardMedia
+                        overlay={
+                        <CardHeader
+                        title="User Name "
+                        subtitle="user brief "
+                        avatar="http://lorempixel.com/100/100/nature/"  />
+                        }
+                    ><img src={this.state.picture} style= {imgStyle}/></CardMedia>
                 </div>
             )
         } else {

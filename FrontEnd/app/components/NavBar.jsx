@@ -1,29 +1,56 @@
 import React from 'react';
-import LeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import RaisedButton from 'material-ui/lib/raised-button';
+import BlogItem from './BlogItem.jsx'
+import CircularProgress from 'material-ui/lib/circular-progress';
+
+
+var $ = require ('jquery');
 
 export default class NavBar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {open: false};
+        this.state = {
+            data: false
+        };
+
+    }
+
+    componentDidMount() {
+        this.setState({loading:true});
+        $.getJSON({
+            url: this.props.url,
+            useDefaultXhrHeader: false,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({
+                    loading:false,
+                    data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                this.setState({
+                    loading:false,
+                    data: "fail"
+                });
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
     }
 
     handleToggle = () => this.setState({open: !this.state.open});
 
     render() {
-        return (
-            <div>
-                <RaisedButton
-                    label="Toggle LeftNav"
-                    onTouchTap={this.handleToggle}
-                />
-                <LeftNav open={this.state.open}>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item 2</MenuItem>
-                </LeftNav>
-            </div>
-        );
+        const  data = this.state.data;
+        if(data) {
+            return (
+                <div>
+                    {data.map(blog => <BlogItem key={blog.id} content = {blog} pageChangeHandler= {this.props.pageChangeHandler}/>)}
+                </div>
+            );
+        } else {
+            return (
+                <CircularProgress/>
+            )
+        }
     }
 }

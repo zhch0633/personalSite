@@ -7,6 +7,7 @@ import Banner from './Banner.jsx';
 import NavBar from './NavBar.jsx';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 
 export default class App extends React.Component {
@@ -23,16 +24,22 @@ export default class App extends React.Component {
         {
           id: uuid.v4(),
           title: 'mock blog2',
-          content:'blog content'
+          content: 'blog content'
         }
       ],
 
       //for show the banner for content
-      banner : {
-        isPicture : true,
+      banner: {
+        isPicture: true,
         picture: "http://images6.fanpop.com/image/photos/34800000/HATSUNE-MIKU-miku-hatsune-34845278-1280-800.jpg"
-      }
-    };
+      },
+
+      window: {width: $(window).width(), height: $(window).height()},
+
+      //now showing blog's id
+      blogID: "home",
+      navOpen : true
+    }
   }
 
   componentDidMount() {
@@ -50,7 +57,6 @@ export default class App extends React.Component {
   };
 
     var titlebar = {
-       position: 'absolute',
        top:'0px',
        left: '0px',
        width: '100%',
@@ -58,61 +64,55 @@ export default class App extends React.Component {
   };
 
     var scrollStyle = {
-       height: '100%',
-      'padding-top':'60',
+      'zIndex' : '-2',
+      height: '100%',
       'overflow':'auto'
     };
 
     var navBarStyle = {
-
+      'zIndex' : '1',
+      'paddingTop':'60'
     };
+
+    if(this.state.navOpen){
+      scrollStyle.paddingLeft = "260"
+    }
 
     return (
       <div style = {centerStype}>
+        <LeftNav open={this.state.navOpen} style = {navBarStyle} width = {260}>
+          <NavBar url="http://localhost:3001/api/blogs"  pageChangeHandler = {this.handlePageChange}/>
+        </LeftNav>
         <AppBar
             style = {titlebar}
             title="Title"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
         />
         <div style={scrollStyle}>
-          <LeftNav open={this.state.open}>
-            <MenuItem>Menu Item</MenuItem>
-            <MenuItem>Menu Item 2</MenuItem>
-          </LeftNav>
           <Banner banner = {this.state.banner}/>
           <Blog url="http://localhost:3001/api/blogs"/>
-        </div>
+        </div>function
       </div>
     );
   }
 
-  updateDimensions(){
-    this.setState({width: $(window).width(), height: $(window).height()});
-  }
+  handlePageChange =  function(id){
+    console.log("jump page");
+    this.setState(
+        {
+          blogID: id
+        }
+    )
+  }.bind(this);
 
-
-  deleteNote = (id) => {
+  //TODO this is the point for bind this function on this context om ES6
+  updateDimensions = function(){
+    var windowSize = {width: $(window).width(), height: $(window).height()};
+    var navBarOpen = false;
+    navBarOpen = windowSize.width > 500;
     this.setState({
-      notes: this.state.notes.filter(note => note.id !== id)
+        window : windowSize,
+        navOpen : navBarOpen
     });
-  };
-  addNote = () => {
-    this.setState({
-      notes: this.state.notes.concat([{
-        id: uuid.v4(),
-        task: 'New task'
-      }])
-    });
-  };
-  editNote = (id, task) => {
-    const notes = this.state.notes.map(note => {
-      if(note.id === id && task) {
-        note.task = task;
-      }
-
-      return note;
-    });
-
-    this.setState({notes});
-  };
+  }.bind(this);
 }
