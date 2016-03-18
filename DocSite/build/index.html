@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" style="margin: 0;height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>Kanban app</title>
+</head>
+<body style="margin:0 ; height:100%;">
+<div id="app" style="margin:0 ; height:100%;">
+    <div id="content">
+        <p class="MsoTitle"><span lang="EN-US">Contactless payment integration</span></p>
+        <h1><span lang="EN-US">MaSDKlite<span style="mso-tab-count: 1;">&nbsp;&nbsp;&nbsp; </span></span></h1>
+        <h2><span lang="EN-US">SDK preview </span></h2>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">The MaSDK is a SDK for QR code encoding and decoding in Alipay plus product .Usually used for contactless payment method as a face to face near field communication technology implementation. Comparing to sonic wave payment, QR code could be printed as a hard copy and contains more information for conplex payment scenario . MaSDK enables developer to implement QR code application and developing face to face payment ability with other component in Alipay plus open API or transfer module.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">MaSDK contains an encoder agent and a decoder agent for developrt to use in their UI, it also contains a well functioned scanning Activity that could be started by user using intents and provide scanning result by Activity result .</span></p>
+        <h2><span lang="EN-US">Getting Start</span></h2>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">MaSDK provided as <span class="MsoIntenseEmphasis">masdklite-1.0.aar</span> library containing all its code, resources, and native libraries. </span></p>
+        <p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal"><span lang="EN-US">1</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Integration</span></p>
+        <p class="MsoNormal"><span lang="EN-US"><span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp; </span>To support using aar as library, one should use a repository to reference an aar library as dependency for a project. The most simple way is to define a local floder as repository in your project . And refer to this repository using aar ext. </span></p>
+        <p class="MsoNormal"><span lang="EN-US"><span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;"><br /> repositories {<br /> <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>flatDir {<br /> <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>dirs </span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">'libs' </span></strong><em><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: gray; mso-font-kerning: 0pt;">//this way we can find the .aar file in libs folder<br /> <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></em><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">}<br /> }<br /> <br /> dependencies {<br /> <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>compile fileTree(</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">dir</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">: </span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">'libs'</span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">, </span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">include</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">: [</span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">'*.jar'</span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">])<br /> <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>compile </span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">'com.android.support:appcompat-v7:23.1.1'<br /> <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">compile (</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">name</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">:</span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">'masdklite-release'</span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">, </span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">ext</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">:</span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">'aar'</span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">)<br /> }</span></p>
+        <p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal"><span lang="EN-US">2</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Permissions </span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">MaSDK use mobile phone camera to get data for decoding. It also requires local external storage permission to run with full funtion. Add these permission to android manifest .</span></p>
+<pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;"><br />
+&lt;</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">uses-permission </span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:name=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"android.permission.CAMERA" </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">/&gt;<br />
+&lt;</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">uses-permission </span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:name=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"android.permission.READ_EXTERNAL_STORAGE" </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">/&gt;<br />
+&lt;</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">uses-permission </span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:name=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"android.permission.WRITE_EXTERNAL_STORAGE" </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">/&gt;</span></pre>
+        <p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal"><span lang="EN-US">3</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Start QR code scanning by MaCaputreActivity</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">The MaCaptureActivity needs a vibrate permission to vibrate user&rsquo;s phone when scanning result got , you need to add this permission to your manifest before using this activity , other refer to the next chapter for writing your own defined Capture Activity.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">&lt;</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">uses-permission </span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:name=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"android.permission.VIBRATE"</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">/&gt;</span></pre>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">After perssion granted , You could start our predefined MaCaptureActivity by an intent and wait for scanning results.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+<pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">Intent intent = </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">new </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">Intent(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"android.intent.action.MAIN"</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);<br />
+intent.setClassName(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">this</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">, MaCaptureActivity.</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">class</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">.getName());<br />
+startActivityForResult(intent, MaCaptureActivity.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">REQ_CAPTURE</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);</span></pre>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 294.05pt;"><span lang="EN-US">By process the result for scanning you can go through to payment or friend relationship operations according to QR code data in result bundle.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 294.05pt;"><span lang="EN-US">&nbsp;</span></p>
+<pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: olive;">@Override<br />
+</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">protected void </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">onActivityResult(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">int </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">requestCode, </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">int </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">resultCode, Intent data) {<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">switch </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">(resultCode){<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">case </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">101</span><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">:<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: gray;">//this result code shows data contains a QR code string<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">String code = data.getStringExtra(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"decodeResult"</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>String perf = data.getStringExtra(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"perf"</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">break</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">;<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">case </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">104</span><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">:<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: gray;">//this result code is a normal return from scanning<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></em><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">break</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">;<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>}<br />
+}</span></pre>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">You can get the code and log of this scanning by bundle extras in activity results , however you need to write your own scanning activity when special funtion or visual style is needed.</span></p>
+        <h2><span lang="EN-US">Decoding by in your own Activity</span></h2>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">In your own activity , you code could use a decoding agent to decoding QR code captured or using other input methods.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal"><span lang="EN-US">1</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Camera preview</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Firstly ,you should implement a basic camera preview , you can refer to this document to start a basic camera activity .</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US"><span style="mso-spacerun: yes;">&nbsp;</span><a href="http://developer.android.com/training/camera/cameradirect.html">http://developer.android.com/training/camera/cameradirect.html</a> </span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Also an IAPScannerPreview has been provided in our library which could start camera by its own, so developer could just place this view on his layouts to build a previewed widget as a part of capture activity .</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Use a RectViewFinder also for use to aimming their camera to the code in the middle region.</span></p>
+<pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">&lt;</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">com.alipay.imobile.android.masdklite.widget.IAPScannerPreview<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:id=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"@+id/svScan"<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:layout_width=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"match_parent"<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:layout_height=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"match_parent" </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">/&gt;<br />
+<br />
+&lt;</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">com.alipay.imobile.android.masdklite.widget.RectViewFinder<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:id=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"@+id/viewfinder"<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:layout_width=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"240dp"<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:layout_height=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"240dp"<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">android</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: blue;">:layout_centerInParent=</span></strong><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"true" </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">/&gt;</span></pre>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">To enable the preview widget , you should bind a camera manager to the preview for this view to open and show camera frames from the manager.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <pre style="background: white;"><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">scannerPreview </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">= (IAPScannerPreview) findViewById(com.alipay.imobile.android.masdklite.R.id.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">svScan</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);</span></pre>
+        <pre style="background: white;"><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">scannerPreview</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">.setCameraManager(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">new </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">CameraManager(MainActivity.</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">this</span></strong></pre>
+        <pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">));</span></pre>
+        <p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal"><span lang="EN-US">2</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Processing camera frames</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">By processing camera frames with a decoder agent user can decode QR code and get code contents.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Decoder agent is a handler accepts messages contains a frame of data , using the following format to pass a fram to decoder , decoder will process this data and call its listener when got QR code inside a frame of picture. Implements Camera.PreviewCallback and using as the following code.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <pre style="background: white;"><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">scannerPreview</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">.</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">previewCallback </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">= </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">callbackListener</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">;</span></pre>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+<pre style="background: white;"><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: olive;">@Override<br />
+</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">public void </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">onPreviewFrame(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">byte</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">[] data, Camera camera) {<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">if </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">decodeAgent </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">== </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">null</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">) {<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">try </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">{<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">decodeAgent </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">= </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">new </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">DecodeAgent(camera, </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">this</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>} </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">catch </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">(ClassCastException e) {<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Log.<em>e</em>(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: green;">"MainActivity"</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">, e.getMessage());<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>}<br />
+<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>Message message = </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">decodeAgent</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">.obtainMessage();<br />
+<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>Bundle dataBundle = </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">new </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">Bundle();<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>dataBundle.putByteArray(KeyConstant.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">KEY_DATA</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">, data);<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>dataBundle.putInt(KeyConstant.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">KEY_HEIGHT</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">, </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">rectViewFinder</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">.getHeight());<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>dataBundle.putInt(KeyConstant.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">KEY_WIDTH</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">, </span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">rectViewFinder</span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">.getWidth());<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>dataBundle.putInt(KeyConstant.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">KEY_FORMAT</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">, KeyConstant.MaIntType.</span><strong><em><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: #660e7a;">MA_QR</span></em></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">);<br />
+<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>message.setData(dataBundle);<br />
+<span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp; </span>message.sendToTarget();<br />
+}</span></pre>
+        <p class="MsoNormal" style="tab-stops: 89.0pt;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">The height and width of target QR code zone are needed , and suggested to be identical to the rectViewFinder, so that if user adjusting the preview screen to match the rect , Decoder will likely to get a decoding result.</span></p>
+        <p class="MsoNormal" style="tab-stops: 89.0pt;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">The format of a targt QR code is also needed , for the decoder to guess the target is a QR code or a bar code ,the decoder will process frame data in different way according to format defined inside the bundle.</span></p>
+        <p class="MsoNormal" style="tab-stops: 89.0pt;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">Also , data should be contains in the bundle for decodding.</span></p>
+        <p class="MsoNormal" style="tab-stops: 89.0pt;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal"><span lang="EN-US">3</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Receiving decode result</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Once a frame sent to decoder agent , the decoder will decode and try identify QR code in a QR code bitmap , if success , this decoder will trigger a listener and return with decoded a String.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">To register the ScanResultCallback before scanning a QR code ,which is usuall in the following format </span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">&nbsp;</span></p>
+        <pre style="background: white;"><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">public void </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">onScanFinish(</span><strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: navy;">boolean </span></strong><span lang="EN-US" style="font-size: 12.0pt; font-family: 'Menlo','serif'; color: black;">isSuccess, String result) </span></pre>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 89.0pt;"><span lang="EN-US">If the success flag is true , you can use the result for going to the next step, either finish the activity with result code , or do a jump to other Activity.</span></p>
+        <h2><span lang="EN-US">Encoding and Decoding agent</span></h2>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Encode agent enables you to encode a string into Qrcode or Barcode , and generate a bitmap for showing in an ImageView.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">Bitmap bitm = encodeAgent.encodeAsBitmap(</span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: green; mso-font-kerning: 0pt;">"Hello World"</span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">, </span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: blue; mso-font-kerning: 0pt;">800</span><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">);</span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">Also decoding agent enables you to decode a Qrcode bitmap into a String . To start a decoding agent , a camera and a scanCallback is needed for input and output.</span></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">public </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">DecodeAgent(Camera camera, ScanResultCallback scanCallback) </span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; background: #E4E4FF; mso-font-kerning: 0pt;">&nbsp;</span></strong></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">DecodeAgent is a handler and process message a previeous chapter , by sending message to this handler .</span></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">It is also can process data bytes using its function directly by decode() function.</span></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">public void </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">decode(</span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">byte</span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">[] data, </span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">int </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">width, </span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">int </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">height, </span><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">int </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">maType) </span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">public </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">String decode(Bitmap bitmap) </span></p>
+        <p class="MsoNormal" style="text-align: left; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: navy; mso-font-kerning: 0pt;">public </span></strong><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">String decode(String filePath) </span></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">&nbsp;</span></p>
+        <p class="MsoNormal" style="text-align: left; text-indent: 1.0cm; mso-pagination: widow-orphan; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; background: white;" align="left"><span lang="EN-US" style="font-family: 'Menlo','serif'; mso-bidi-font-family: Courier; color: black; mso-font-kerning: 0pt;">&nbsp;</span></p>
+        <h1><span lang="EN-US">Sonic Wave</span></h1>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Sonic wave is another communication method for contactless payment .<span style="mso-spacerun: yes;">&nbsp; </span>This method . This method uses mobile phone speaker and sonic sonsor to transfer messages in a from of sonic wave , by discontinuous fourier transfrom . User could encode a message into a sonic wave in String from without attention to its detialed imlementation in physical level with sonicsSDK .</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">1</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Integration</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Sonic SDK shipped as an aar library for Android development . Use sonicsdk.aar in local repository and import use aar ext in gradle for project building process. </span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">2</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-font-family: Cambria; mso-hansi-theme-font: minor-latin;">、</span><span lang="EN-US">Getting Start</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">Use SoundNFC to send and receive a sonic message .</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">The Send method use a string as imput data , usually a supor sonic message could not catched by human ear , in order for user interact , developer shoule also define a soundEffectFile to play during the data sending time . It also contains a ilstener for send complete callback or send fail callback uses.</span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">There are three soundTypes , when sound type is mix , sound effiect file will be played while data sending. </span></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm;"><span lang="EN-US">The receive method contains a listener and a timeout limit . developer should also pass a context for reference to app resources . </span></p>
+        <h1><span lang="EN-US">Implement QR code payment</span></h1>
+        <p><!-- [if gte mso 9]><xml>
+            <o:OfficeDocumentSettings>
+                <o:AllowPNG/>
+            </o:OfficeDocumentSettings>
+        </xml><![endif]--> <!-- [if gte mso 9]><xml>
+            <w:WordDocument>
+                <w:View>Normal</w:View>
+                <w:Zoom>0</w:Zoom>
+                <w:TrackMoves/>
+                <w:TrackFormatting/>
+                <w:PunctuationKerning/>
+                <w:DrawingGridVerticalSpacing>10 pt</w:DrawingGridVerticalSpacing>
+                <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+                <w:DisplayVerticalDrawingGridEvery>2</w:DisplayVerticalDrawingGridEvery>
+                <w:ValidateAgainstSchemas/>
+                <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+                <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+                <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+                <w:DoNotPromoteQF/>
+                <w:LidThemeOther>EN-US</w:LidThemeOther>
+                <w:LidThemeAsian>ZH-CN</w:LidThemeAsian>
+                <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+                <w:Compatibility>
+                    <w:SpaceForUL/>
+                    <w:BalanceSingleByteDoubleByteWidth/>
+                    <w:DoNotLeaveBackslashAlone/>
+                    <w:ULTrailSpace/>
+                    <w:DoNotExpandShiftReturn/>
+                    <w:AdjustLineHeightInTable/>
+                    <w:BreakWrappedTables/>
+                    <w:SnapToGridInCell/>
+                    <w:WrapTextWithPunct/>
+                    <w:UseAsianBreakRules/>
+                    <w:DontGrowAutofit/>
+                    <w:SplitPgBreakAndParaMark/>
+                    <w:EnableOpenTypeKerning/>
+                    <w:DontFlipMirrorIndents/>
+                    <w:OverrideTableStyleHps/>
+                    <w:UseFELayout/>
+                </w:Compatibility>
+                <w:NoLineBreaksAfter Lang="JA">$([{£¥·‘“〈《「『【〔〖〝﹙﹛﹝＄（．［｛￡￥</w:NoLineBreaksAfter>
+                <w:NoLineBreaksBefore Lang="JA">!%),.:;&gt;?]}¢¨°·ˇˉ―‖’”…‰′″›℃∶、。〃〉》」』】〕〗〞︶︺︾﹀﹄﹚﹜﹞！＂％＇），．：；？］｀｜｝～￠</w:NoLineBreaksBefore>
+                <m:mathPr>
+                    <m:mathFont m:val="Cambria Math"/>
+                    <m:brkBin m:val="before"/>
+                    <m:brkBinSub m:val="&#45;-"/>
+                    <m:smallFrac m:val="off"/>
+                    <m:dispDef/>
+                    <m:lMargin m:val="0"/>
+                    <m:rMargin m:val="0"/>
+                    <m:defJc m:val="centerGroup"/>
+                    <m:wrapIndent m:val="1440"/>
+                    <m:intLim m:val="subSup"/>
+                    <m:naryLim m:val="undOvr"/>
+                </m:mathPr></w:WordDocument>
+        </xml><![endif]--><!-- [if gte mso 9]><xml>
+            <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+                            DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+                            LatentStyleCount="276">
+                <w:LsdException Locked="false" Priority="0" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Normal"/>
+                <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="heading 1"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 7"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 8"/>
+                <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 9"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 1"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 2"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 4"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 5"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 6"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 7"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 8"/>
+                <w:LsdException Locked="false" Priority="39" Name="toc 9"/>
+                <w:LsdException Locked="false" Priority="35" QFormat="true" Name="caption"/>
+                <w:LsdException Locked="false" Priority="10" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Title"/>
+                <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+                <w:LsdException Locked="false" Priority="11" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/>
+                <w:LsdException Locked="false" Priority="22" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Strong"/>
+                <w:LsdException Locked="false" Priority="20" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/>
+                <w:LsdException Locked="false" Priority="59" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Table Grid"/>
+                <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/>
+                <w:LsdException Locked="false" Priority="1" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading Accent 1"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List Accent 1"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid Accent 1"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/>
+                <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/>
+                <w:LsdException Locked="false" Priority="34" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/>
+                <w:LsdException Locked="false" Priority="29" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Quote"/>
+                <w:LsdException Locked="false" Priority="30" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List Accent 1"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List Accent 1"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading Accent 2"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List Accent 2"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid Accent 2"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List Accent 2"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List Accent 2"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading Accent 3"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List Accent 3"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid Accent 3"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List Accent 3"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List Accent 3"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading Accent 4"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List Accent 4"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid Accent 4"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List Accent 4"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List Accent 4"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading Accent 5"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List Accent 5"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid Accent 5"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List Accent 5"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List Accent 5"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/>
+                <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Shading Accent 6"/>
+                <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light List Accent 6"/>
+                <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Light Grid Accent 6"/>
+                <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/>
+                <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/>
+                <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/>
+                <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/>
+                <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/>
+                <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/>
+                <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/>
+                <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Dark List Accent 6"/>
+                <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/>
+                <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful List Accent 6"/>
+                <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+                                UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/>
+                <w:LsdException Locked="false" Priority="19" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/>
+                <w:LsdException Locked="false" Priority="21" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/>
+                <w:LsdException Locked="false" Priority="31" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/>
+                <w:LsdException Locked="false" Priority="32" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/>
+                <w:LsdException Locked="false" Priority="33" SemiHidden="false"
+                                UnhideWhenUsed="false" QFormat="true" Name="Book Title"/>
+                <w:LsdException Locked="false" Priority="37" Name="Bibliography"/>
+                <w:LsdException Locked="false" Priority="39" QFormat="true" Name="TOC Heading"/>
+            </w:LatentStyles>
+        </xml><![endif]--> <!-- [if gte mso 10]>
+            <style>
+                /* Style Definitions */
+                table.MsoNormalTable
+                {mso-style-name:普通表格;
+                    mso-tstyle-rowband-size:0;
+                    mso-tstyle-colband-size:0;
+                    mso-style-noshow:yes;
+                    mso-style-priority:99;
+                    mso-style-parent:"";
+                    mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+                    mso-para-margin:0cm;
+                    mso-para-margin-bottom:.0001pt;
+                    mso-pagination:widow-orphan;
+                    font-size:12.0pt;
+                    font-family:Cambria;
+                    mso-ascii-font-family:Cambria;
+                    mso-ascii-theme-font:minor-latin;
+                    mso-hansi-font-family:Cambria;
+                    mso-hansi-theme-font:minor-latin;
+                    mso-font-kerning:1.0pt;}
+            </style>
+            <![endif]--> <!--StartFragment--> <!--EndFragment--></p>
+        <p class="MsoNormal" style="text-indent: 1.0cm; tab-stops: 49.65pt;"><span lang="EN-US">QR code payment is </span></p>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="./bundle.js"></script>
+
+</body>
+</html>
