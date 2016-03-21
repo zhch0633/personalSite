@@ -1,18 +1,16 @@
 /**
- * Created by 淡斋 on 03/02/16.
- * use this api to get mock json from server 
+ * Created by 淡斋 on 21/03/16.
+ * a json api for get a specific json object 
  */
-
 var keystone = require('keystone');
-var async = require('async');
 
 exports = module.exports = function(req, res) {
-
-	var q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author');
+	
+	var q = keystone.list('Post').model.find().where('_id', req.query.id).sort('-publishedDate').populate('author').limit('1');
 
 	q.exec(function(err, results) {
-		if (err) {
-			res.send({error: 'Not found'});
+		if(err){
+			res.send({ error: 'Not found' });
 		} else {
 			var jsonRaw = [];
 			//generate blogs list needed contents
@@ -23,7 +21,7 @@ exports = module.exports = function(req, res) {
 					publishedDate: results[i].publishedDate,
 					brief: results[i].content.brief
 				};
-				jsonRaw.push(item);
+				jsonRaw.push(results[i]);
 			}
 
 			res.header("Access-Control-Allow-Origin", "*");//access control allow origin 

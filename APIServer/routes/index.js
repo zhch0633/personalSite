@@ -36,6 +36,7 @@ var routes = {
 exports = module.exports = function(app) {
 	//apis 
 	app.get('/api/blogs',routes.apis.blogJson);
+	app.get('/api/post',routes.apis.postJson);
 	
 	// Views
 	app.get('/', routes.views.index);
