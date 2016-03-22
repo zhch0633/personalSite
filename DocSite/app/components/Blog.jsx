@@ -15,7 +15,7 @@ export default class Blog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            avatar : "http://stanford.edu/~trzhao/CS73N/img/mikuv3-head.png",
+            avatar : this.props.avatar,
             background : "http://pic.qiantucdn.com/58pic/11/25/25/46j58PICKMh.jpg",
             blogTitle: "用react搞定解耦博客站",
             blogSubTitle:"To handle blog site with react trick"

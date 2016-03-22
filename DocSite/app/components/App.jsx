@@ -3,6 +3,7 @@ import AppBar from 'material-ui/lib/app-bar';
 import Blog from'./Blog.jsx'
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import BlogNavBar from './NavBar.jsx'
 
 var $ = require ('jquery');
 
@@ -14,7 +15,9 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             open : false,
-            url :url
+            url :this.props.url,
+            blogListUrl : this.props.url + "api/blogs",
+            avatar:this.props.avatar
         }
     };
 
@@ -56,14 +59,13 @@ export default class App extends React.Component {
                 />
                 <LeftNav
                     docked={false}
-                    width={200}
+                    width={400}
                     open={this.state.open}
                     onRequestChange={open => this.setState({open})}
                 >
-                    <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+                    <BlogNavBar url = {this.state.blogListUrl}  pageChangeHandler = {this.handlePageChange} avatar = {this.state.avatar}/>
                 </LeftNav>
-                <Blog/>
+                <Blog avatar = {this.state.avatar}/>
             </div>
         )
     }
@@ -73,5 +75,15 @@ export default class App extends React.Component {
         this.setState({
             open: true
         });
-    }
+    };
+
+
+    handlePageChange =  function(id){
+        console.log("jump page");
+        this.setState(
+            {
+                blogID: id
+            }
+        )
+    }.bind(this);
 }

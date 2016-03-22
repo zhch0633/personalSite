@@ -1,16 +1,17 @@
 import React from 'react';
 import BlogItem from './BlogItem.jsx'
 import CircularProgress from 'material-ui/lib/circular-progress';
-
-
-var $ = require ('jquery');
+import CardHeader from 'material-ui/lib/card/card-header';
+import CardText from 'material-ui/lib/card/card-text';
+import Card from 'material-ui/lib/card/card';
 
 export default class NavBar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: false
+            data: false,
+            showingBlog :"empty"
         };
 
     }
@@ -40,11 +41,13 @@ export default class NavBar extends React.Component {
     handleToggle = () => this.setState({open: !this.state.open});
 
     render() {
-        const  data = this.state.data;
+        const data = this.state.data;
         if(data) {
             return (
                 <div>
-                    {data.map(blog => <BlogItem key={blog.id} content = {blog} pageChangeHandler= {this.props.pageChangeHandler}/>)}
+                    {data.map(blog => <BlogItem key={blog.id} content={blog} showingBlog = {this.state.showingBlog} avatar = {this.props.avatar}
+                                                pageChangeHandler={this.props.pageChangeHandler}
+                                                hoverChangeHandler={this.handleHoverChange}/>)}
                 </div>
             );
         } else {
@@ -53,4 +56,14 @@ export default class NavBar extends React.Component {
             )
         }
     }
+
+    handleHoverChange =  function(blog){
+        if(this.state.showingBlog!= blog) {
+            this.setState(
+                {
+                    showingBlog: blog
+                }
+            )
+        }
+    }.bind(this);
 }
