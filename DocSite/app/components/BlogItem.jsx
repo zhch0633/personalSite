@@ -16,6 +16,9 @@ import CardText from 'material-ui/lib/card/card-text';
 import Paper from 'material-ui/lib/paper';
 import IconButton from 'material-ui/lib/icon-button';
 
+import FontIcon from 'material-ui/lib/font-icon';
+import Colors from 'material-ui/lib/styles/colors';
+import randomColor from './utils/randomColor.jsx';
 
 var $ = require ('jquery');
 
@@ -24,6 +27,10 @@ const styles = {
         padding: 0,
         maxWidth: 400
     }
+};
+
+const iconStyles = {
+    marginRight: 24
 };
 
 
@@ -50,32 +57,35 @@ export default class BlogItem extends React.Component {
                 showHover = true;
             }
         }
-        console.log(this.state.blog.id + this.props.showingBlog);
 
         var headerStyle ={
-
+            color: "white",
+            backgroundColor : randomColor.generate()
         };
 
+        var footColor = {
+            backgroundColor: "#EEEEEE"
+        };
         if(showHover) {
             return (
+                <div>
                     <ListItem
+                        style={headerStyle}
                         onClick={this.handleClick}
                         onMouseOver={this.onMouseOver}
-                    >   <p> {this.state.blog.title} </p>
-                        <Paper zDepth={1}>
-                        <CardText>
-                            <div dangerouslySetInnerHTML={{__html:this.state.blog.brief}}></div>
-                        </CardText>
-                        <CardHeader
-                            title= "残相君~"
-                            subtitle={this.state.blog.publishedDate}
-                            avatar={this.state.avatar}
-                        ><IconButton
-                            iconClassName="muidocs-icon-custom-github"
-                        /></CardHeader>
-                        </Paper>
-
+                    > {this.state.blog.title}
                     </ListItem>
+                    <CardText  style = {footColor}>
+                        <div dangerouslySetInnerHTML={{__html:this.state.blog.brief}}></div>
+                    </CardText>
+                    <CardHeader
+                        style = {footColor}
+                        title= "残相君~"
+                        subtitle={this.state.blog.publishedDate}
+                        avatar={this.state.avatar}
+                    >
+                    </CardHeader>
+                </div>
             );
         } else {
             return(
@@ -89,7 +99,7 @@ export default class BlogItem extends React.Component {
     }
 
     handleClick = () =>{
-        this.props.pageChangeHandler(this.state.blog.id);
+        this.props.pageChangeHandler("/blog",this.state.blog.id);
     };
 
     onMouseOver = (event) =>{

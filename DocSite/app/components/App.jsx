@@ -4,6 +4,10 @@ import Blog from'./Blog.jsx'
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import BlogNavBar from './NavBar.jsx'
+import CircularProgress from 'material-ui/lib/circular-progress';
+import Home from './Home.jsx';
+
+import randomColor from './utils/randomColor.jsx';
 
 var $ = require ('jquery');
 
@@ -13,12 +17,32 @@ var $ = require ('jquery');
 export default class App extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             open : false,
             url :this.props.url,
+            location : window.location,
             blogListUrl : this.props.url + "api/blogs",
-            avatar:this.props.avatar
+            blogPostUrl : this.props.url + "api/post?id=",
+            avatar:this.props.avatar,
+            firstLoad :true,
+
+            page : window.location.pathname,
+            blogID:"",
+            titleBarTitle : "残相君.blog"
+        };
+
+        var that = this;
+        if(window.location.pathname == "/"){
+            this.state.page = "/home"
         }
+        //for pop state
+        window.onpopstate = function(event) {
+            if(event.state !== null) {
+                this.state.backStack = event;
+                this.handlePageBack(event.state.pageGroup,event.state.searchID);
+            }
+        }.bind(that)
     };
 
     componentDidMount() {
@@ -41,31 +65,66 @@ export default class App extends React.Component {
                 console.error(this.props.url, status, err.toString());
             }.bind(this)
         });
+
+        //once a blog is loaded at the first time ,do this
+        if(window.location.pathname=="/blog"){
+            this.handlePageChange("/blog",this.getParameterByName("id"));
+            //push state to blog
+        } else {
+            //push state to home
+            var shiftPage = {
+                pageGroup:"/home",
+                searchID:""
+            };
+            history.replaceState(shiftPage,"残相君博客:技术有点萌","home");
+            this.setState({
+                firstLoad : false
+            })
+        }
     }
 
     render() {
         var appBarStyle = {
             position:"fixed",
+            backgroundColor: randomColor.generate(),
             top:0
         };
+
+        var mainContainer = <CircularProgress/>;
+
+        //prepare for blog page or other pages
+        if(this.state.loading){
+            mainContainer = <CircularProgress/>;
+            this.state.titleBarTitle = "读取中..."
+        } else if(this.state.page == "/home") {
+            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} />;
+            this.state.titleBarTitle = "残相君.home"
+        } else if(this.state.page == "/blog"){
+            mainContainer = <Blog avatar = {this.state.avatar} blogContent = {this.state.blogContent} pageChangeHandler={this.handlePageChange} />;
+            if(this.state.blogContent) {
+                this.state.titleBarTitle = "Blog. " + this.state.blogContent.title
+            } else{
+                this.state.titleBarTitle = "读取失败"
+            }
+        }
 
         return (
             <div>
                 <AppBar
-                    title="Title"
+                    title={this.state.titleBarTitle}
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonTouchTap = {this.handleClickNavBar}
                     style = {appBarStyle}
+                    zDepth = {2}
                 />
                 <LeftNav
                     docked={false}
                     width={400}
                     open={this.state.open}
                     onRequestChange={open => this.setState({open})}
-                >
-                    <BlogNavBar url = {this.state.blogListUrl}  pageChangeHandler = {this.handlePageChange} avatar = {this.state.avatar}/>
+                ><BlogNavBar url = {this.state.blogListUrl}  pageChangeHandler = {this.handlePageChange} avatar = {this.state.avatar}/>
                 </LeftNav>
-                <Blog avatar = {this.state.avatar}/>
+                {mainContainer}
             </div>
         )
     }
@@ -77,13 +136,89 @@ export default class App extends React.Component {
         });
     };
 
+    getParameterByName = (name, url) => {
+        if (!url) url = window.location.href;
+        url = url.toLowerCase(); // This is just to avoid case sensitiveness
+        name = name.replace(/[\[\]]/g, "\\$&").toLowerCase();// This is just to avoid case sensitiveness for query parameter name
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
 
-    handlePageChange =  function(id){
-        console.log("jump page");
+    handlePageBack = function(pageGroup,id){
+        console.log("back state " + pageGroup + " " +id);
+        if(pageGroup=="/home") {
+            this.shiftToHome();
+        }
+        if(pageGroup=="/blog"){
+            this.shiftToBlog(id);
+        }
+    }.bind(this);
+
+    handlePageChange =  function(pageGroup,id){
+        var shiftPage = {
+            pageGroup:pageGroup,
+            searchID:id
+        };
+        console.log("push state" + this.state.page +" " + this.state.blogID);
+        if(pageGroup=="/home"){
+            this.shiftToHome();
+            history.pushState(shiftPage,"残相君博客:技术有点萌","home")
+        }
+        if(pageGroup=="/blog"){
+            this.shiftToBlog(id);
+            var blogUrl = "blog" + "?id=" + id;
+            //when first load ,replace a stack
+            if(this.state.firstLoad) {
+                history.replaceState(shiftPage, "残相君博客:技术有点萌", blogUrl);
+                this.setState({
+                    firstLoad : false
+                })
+            } else{
+                history.pushState(shiftPage, "残相君博客:技术有点萌", blogUrl);
+            }
+        }
+    }.bind(this);
+
+    shiftToHome = () => {
         this.setState(
             {
-                blogID: id
+                page:"/home"
             }
         )
-    }.bind(this);
+    };
+
+    shiftToBlog = (id) =>{
+        //first step set loading
+        this.setState(
+            {
+                blogID: id,
+                loading: true,
+                open:false
+            }
+        );
+        console.log("jump page");
+        $.getJSON({
+            url: this.state.blogPostUrl + id,
+            useDefaultXhrHeader: false,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({
+                    page:"/blog",
+                    loading:false,
+                    blogContent: data[0]});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                this.setState({
+                    page:"/blog",
+                    loading:false,
+                    data: "fail"
+                });
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
 }
