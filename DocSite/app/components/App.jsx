@@ -87,26 +87,37 @@ export default class App extends React.Component {
         var appBarStyle = {
             position:"fixed",
             backgroundColor: randomColor.generate(),
-            top:0
+            top:0,
+            height:"64px",
+            minHeight:"64px",
+            maxHeight:"64px"
+        };
+
+        var containerStyle = {
+
         };
 
         var mainContainer = <CircularProgress/>;
 
         //prepare for blog page or other pages
         if(this.state.loading){
-            mainContainer = <CircularProgress/>;
+            mainContainer = <CircularProgress style = {containerStyle}/>;
             this.state.titleBarTitle = "读取中..."
         } else if(this.state.page == "/home") {
-            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} />;
+            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} style = {containerStyle} />;
             this.state.titleBarTitle = "残相君.home"
         } else if(this.state.page == "/blog"){
-            mainContainer = <Blog avatar = {this.state.avatar} blogContent = {this.state.blogContent} pageChangeHandler={this.handlePageChange} />;
+            mainContainer = <Blog avatar = {this.state.avatar} blogContent = {this.state.blogContent} pageChangeHandler={this.handlePageChange} style = {containerStyle}/>;
             if(this.state.blogContent) {
                 this.state.titleBarTitle = "Blog. " + this.state.blogContent.title
             } else{
                 this.state.titleBarTitle = "读取失败"
             }
         }
+
+        var navStyle = {
+            "overflowX":"hidden"
+        };
 
         return (
             <div>
@@ -118,6 +129,7 @@ export default class App extends React.Component {
                     zDepth = {2}
                 />
                 <LeftNav
+                    style={navStyle}
                     docked={false}
                     width={400}
                     open={this.state.open}

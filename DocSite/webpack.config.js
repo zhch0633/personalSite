@@ -37,7 +37,11 @@ const common = {
         include: PATHS.app
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };
 
 if(TARGET === 'start' || !TARGET) {

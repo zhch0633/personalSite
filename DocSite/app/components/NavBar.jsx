@@ -42,9 +42,14 @@ export default class NavBar extends React.Component {
 
     render() {
         const data = this.state.data;
+
+        var divStyle = {
+            overflow:"hidden"
+        };
+
         if(data) {
             return (
-                <div>
+                <div style={divStyle}>
                     {data.map(blog => <BlogItem key={blog.id} content={blog} showingBlog = {this.state.showingBlog} avatar = {this.props.avatar}
                                                 pageChangeHandler={this.props.pageChangeHandler}
                                                 hoverChangeHandler={this.handleHoverChange}/>)}

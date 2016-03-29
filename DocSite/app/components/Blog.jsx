@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import ImgHost from './ImgHost.jsx';
 
+var $ = require ('jquery');
 /**this is a block to show a blog with a bannar
  */
 
@@ -23,31 +24,61 @@ export default class Blog extends React.Component {
         }
     };
 
+    componentDidMount() {
+        if(this.props.blogContent) {
+            var thread = "blog?id=" + this.props.blogContent._id;
+            var url = "http://zhch0633.github.io/blog?id=" + this.props.blogContent._id;
+
+            var el = document.createElement('div');//该div不需要设置class="ds-thread"
+            el.setAttribute('data-thread-key', thread);//必选参数
+            el.setAttribute('data-url', url);//必选参数
+            el.setAttribute('data-author-key', thread);//可选参数
+            DUOSHUO.EmbedThread(el);
+            $("#comment-box").append(el);
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.props.blogContent) {
+            var thread = "blog?id=" + this.props.blogContent._id;
+            var url = "http://zhch0633.github.io/blog?id=" + this.props.blogContent._id;
+
+            var el = document.createElement('div');//该div不需要设置class="ds-thread"
+            el.setAttribute('data-thread-key', thread);//必选参数
+            el.setAttribute('data-url', url);//必选参数
+            el.setAttribute('data-author-key', thread);//可选参数
+            DUOSHUO.EmbedThread(el);
+            $("#comment-box").append(el);
+        }
+    }
+
     render() {
         var backGroundStyle = {
-            paddingTop:'80',
-            paddingLeft:10,
-            paddingRight:10,
-            paddingBottom : '20'
+            paddingTop: '80',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingBottom: '20'
         };
 
         var bodyStyle = {
-            maxWidth:'1000',
+            maxWidth: '1000',
             margin: 'auto',
-            top: 0, left: 0,bottom: 0, right: 0};
+            top: 0, left: 0, bottom: 0, right: 0
+        };
 
         var pictureStyle = {
-            clip:'rect(0px,50px,200px,0px)'
+            clip: 'rect(0px,50px,200px,0px)'
         };
 
         var cardHeaderStyle = {
-            marginBottom : '20'
+            marginBottom: '20'
         };
 
-        if(this.props.blogContent) {
-            if(this.props.blogContent.image){
+        if (this.props.blogContent) {
+            if (this.props.blogContent.image) {
                 this.state.background = this.props.blogContent.image.url
             }
+
             return (
                 <div style={backGroundStyle}>
                     <Card style={bodyStyle}>
@@ -56,7 +87,8 @@ export default class Blog extends React.Component {
                             subtitle="有时候比较宅"
                             avatar={this.state.avatar}
                         >
-                            <FlatButton label="回到首页" primary={true} style={cardHeaderStyle} onClick={this.handleHomeClick}/>
+                            <FlatButton label="回到首页" primary={true} style={cardHeaderStyle}
+                                        onClick={this.handleHomeClick}/>
                             <FlatButton label="勾搭钦定" secondary={true} style={cardHeaderStyle}/>
                             <FlatButton label="批判一番" disabled={true} style={cardHeaderStyle}/>
                         </CardHeader>
@@ -71,11 +103,12 @@ export default class Blog extends React.Component {
                         <CardText>
                             <div dangerouslySetInnerHTML={{__html:this.props.blogContent.content.extended}}></div>
                         </CardText>
+                        <div id="comment-box"> </div>
                     </Card>
                 </div>
             )
         } else {
-            return(
+            return (
                 <p style={bodyStyle}>Sorry Can not load this blog</p>
             )
         }
