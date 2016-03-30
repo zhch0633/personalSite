@@ -104,7 +104,7 @@ export default class App extends React.Component {
             mainContainer = <CircularProgress style = {containerStyle}/>;
             this.state.titleBarTitle = "读取中..."
         } else if(this.state.page == "/home") {
-            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} style = {containerStyle} />;
+            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} url={this.state.blogListUrl} style = {containerStyle} />;
             this.state.titleBarTitle = "残相君.home"
         } else if(this.state.page == "/blog"){
             mainContainer = <Blog avatar = {this.state.avatar} blogContent = {this.state.blogContent} pageChangeHandler={this.handlePageChange} style = {containerStyle}/>;

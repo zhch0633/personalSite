@@ -48,7 +48,7 @@ export default class Blog extends React.Component {
             el.setAttribute('data-url', url);//必选参数
             el.setAttribute('data-author-key', thread);//可选参数
             DUOSHUO.EmbedThread(el);
-            $("#comment-box").append(el);
+            $("#comment-box").empty().append(el);
         }
     }
 

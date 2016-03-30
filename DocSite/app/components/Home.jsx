@@ -8,6 +8,16 @@ import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import ImgHost from './ImgHost.jsx';
 
+import BlogItem from './BlogItem.jsx'
+import CircularProgress from 'material-ui/lib/circular-progress';
+import GridList from 'material-ui/lib/grid-list/grid-list';
+import GridTile from 'material-ui/lib/grid-list/grid-tile';
+import StarBorder from 'material-ui/lib/svg-icons/toggle/star-border';
+import IconButton from 'material-ui/lib/icon-button';
+import randomColor from './utils/randomColor.jsx';
+import Avatar from 'material-ui/lib/avatar';
+
+
 /**this is a block to show a blog with a bannar
  */
 
@@ -18,51 +28,110 @@ export default class Home extends React.Component {
             avatar : this.props.avatar,
             background : "http://pic.qiantucdn.com/58pic/11/25/25/46j58PICKMh.jpg",
             blogTitle: "用react搞定解耦博客站",
-            blogSubTitle:"To handle blog site with react trick"
+            blogSubTitle:"To handle blog site with react trick",
+            data : false
         }
     };
 
+    componentDidMount() {
+        this.setState({loading:true});
+        $.getJSON({
+            url: this.props.url,
+            useDefaultXhrHeader: false,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({
+                    loading:false,
+                    data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                this.setState({
+                    loading:false,
+                    data: "fail"
+                });
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
+
     render() {
-        var backGroundStyle = {
-            paddingTop:'80',
-            paddingLeft:10,
-            paddingRight:10,
-            paddingBottom : '20'
+        const data = this.state.data;
+
+        const styles = {
+            root: {
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                paddingTop: '0',
+                paddingBottom: '20'
+            },
+            gridList: {
+                width: "100%",
+                height: 800,
+                overflowY: 'auto',
+                marginBottom: 24,
+                background : "white"
+            }
         };
 
-        var bodyStyle = {
-            maxWidth:'1000',
-            margin: 'auto',
-            top: 0, left: 0,bottom: 0, right: 0};
-
-        var pictureStyle = {
-            clip:'rect(0px,50px,200px,0px)'
+        var divStyle = {
+            background :randomColor.generate()
         };
 
-        var cardHeaderStyle = {
-            marginBottom : '20'
+        var bannerStyle = {
+            width :"100%",
+            top:50
+        };
+        var avatarStyle = {
+            position: "absolute",
+            left: 0,
+            top: 0,
+            right:0,
+            bottom:0,
+            margin: "auto"
+        };
+        var containerStyle = {
+            width: '100%',
+            height: '0',
+            'paddingBottom': '30%',
+            overflow: 'hidden'
         };
 
-        return (
-            <div style={backGroundStyle}>
-                <Card style={bodyStyle}>
-                    <CardHeader
-                        title="残相君"
-                        subtitle="有时候比较宅"
-                        avatar={this.state.avatar}
+        var imgStyle = {
+            width: '100%'
+        };
+
+        if (data) {
+            return (
+                <div style={styles.root}>
+                    <div style={bannerStyle}>
+                        <CardMedia
+                            overlay={
+                            <CardTitle title="blog 首页" subtitle="身经百战,见招拆招 ~ 谈笑风生,毕竟too young ,欢迎小伙伴骚扰" />
+                            }
+                        ><ImgHost src="/pic/Material-design.jpg" height="50%"/>
+                            <div style ={avatarStyle}>
+                                <Avatar style ={avatarStyle} src={this.state.avatar} size = '120'/>
+                            </div>
+                        </CardMedia>
+                    </div>
+                    <GridList
+                        cols={2}
+                        cellHeight={200}
+                        padding={1}
+                        style={styles.gridList}
                     >
-                        <FlatButton label="回到首页" primary={true} style={cardHeaderStyle}/>
-                        <FlatButton label="勾搭钦定" secondary={true} style={cardHeaderStyle}/>
-                        <FlatButton label="批判一番" disabled={true} style={cardHeaderStyle}/>
-                    </CardHeader>
-                    <CardMedia
-                        overlay={<CardTitle title= {"技术有点萌"} subtitle={"看番,看漫,搞绘画~代码,设计,程序员"} />}
-                    >
-                        <ImgHost src={this.state.background}/>
-                    </CardMedia>
-                    <p>首页工程中</p>
-                </Card>
-            </div>
-        )
+                        {this.state.data.map(blog => (
+                            <div style={divStyle}> 首页工程中,从菜单进吧~ </div>
+                        ))}
+                    </GridList>
+                </div>
+            );
+        } else {
+            return (
+                <CircularProgress/>
+            )
+        }
     }
 }

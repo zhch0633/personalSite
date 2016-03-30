@@ -34,7 +34,7 @@ const iconStyles = {
 };
 
 
-export default class BlogItem extends React.Component {
+export default class BlogBrief extends React.Component {
 
     constructor(props) {
         super(props);
@@ -80,16 +80,16 @@ export default class BlogItem extends React.Component {
                     > {this.state.blog.title}
                     </ListItem>
                     <ListItem style = {footColor}>
-                    <CardText  style = {footColor}>
-                        <div dangerouslySetInnerHTML={{__html:this.state.blog.brief}}></div>
-                    </CardText>
-                    <CardHeader
-                        style = {footColor}
-                        title= "残相君~"
-                        subtitle={this.state.blog.publishedDate}
-                        avatar={this.state.avatar}
-                    >
-                    </CardHeader>
+                        <CardText  style = {footColor}>
+                            <div dangerouslySetInnerHTML={{__html:this.state.blog.brief}}></div>
+                        </CardText>
+                        <CardHeader
+                            style = {footColor}
+                            title= "残相君~"
+                            subtitle={this.state.blog.publishedDate}
+                            avatar={this.state.avatar}
+                        >
+                        </CardHeader>
                     </ListItem>
                 </div>
             );

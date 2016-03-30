@@ -15,4 +15,4 @@ import App from './components/App.jsx'
 
 injectTapEventPlugin();
 var rawDocument = document.getElementById('content').innerHTML;
-ReactDOM.render(<App url="http://120.25.107.64/" avatar = "http://stanford.edu/~trzhao/CS73N/img/mikuv3-head.png"/>,document.getElementById('app'));
+ReactDOM.render(<App url="http://120.25.107.64/" avatar = "pic/avatar.gif"/>,document.getElementById('app'));

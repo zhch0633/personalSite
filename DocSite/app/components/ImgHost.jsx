@@ -8,7 +8,8 @@ export default class ImgHost extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            src : props.src
+            src : props.src,
+            height :props.height
         }
     };
 
@@ -16,9 +17,13 @@ export default class ImgHost extends React.Component {
         var containerStyle = {
             width: '100%',
             height: '0',
-            'paddingBottom': '35%',
+            'paddingBottom': '30%',
             overflow: 'hidden'
         };
+
+        if(this.state.height) {
+            containerStyle.paddingBottom = this.state.height
+        }
 
         var imgStyle = {
             width: '100%'
