@@ -8,7 +8,14 @@ var async = require('async');
 
 exports = module.exports = function(req, res) {
 
-	var q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author');
+	//this is the query 
+	var q;
+	
+	if(req.query.category){
+		q = keystone.list('Post').model.find().where('state', 'published').where('categories').in([req.query.category]).sort('-publishedDate').populate('author').populate('categories');
+	} else {
+		q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author').populate('categories');
+	}
 
 	q.exec(function(err, results) {
 		if (err) {
@@ -21,7 +28,9 @@ exports = module.exports = function(req, res) {
 					id: results[i]._id,
 					title: results[i].title,
 					publishedDate: results[i].publishedDate,
-					brief: results[i].content.brief
+					brief: results[i].content.brief,
+					categories:results[i].categories,
+					image:results[i].image
 				};
 				jsonRaw.push(item);
 			}
@@ -30,5 +39,4 @@ exports = module.exports = function(req, res) {
 			res.send(JSON.stringify(jsonRaw));
 		}
 	});
-
 };

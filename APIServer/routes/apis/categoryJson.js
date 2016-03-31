@@ -1,16 +1,17 @@
 /**
- * Created by 淡斋 on 21/03/16.
- * a json api for get a specific json object 
+ * Created by 淡斋 on 03/02/16.
+ * use this api to get category from the server 
  */
+
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
-	
-	var q = keystone.list('Post').model.find().where('_id', req.query.id).sort('-publishedDate').populate('author').limit('1').populate('categories');
+
+	var q = keystone.list('PostCategory').model.find();
 
 	q.exec(function(err, results) {
-		if(err){
-			res.send({ error: 'Not found' });
+		if (err) {
+			res.send({error: 'Not found'});
 		} else {
 			var jsonRaw = [];
 			//generate blogs list needed contents
