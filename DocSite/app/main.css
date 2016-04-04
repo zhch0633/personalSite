@@ -12,3 +12,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font-family: oswald;
     vertical-align:baseline
 }
+
+.alphaBack {
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(256, 256, 256);
+    /* RGBa with 0.6 opacity */
+    background: rgba(256, 256, 256, 0.5);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF)";
+}

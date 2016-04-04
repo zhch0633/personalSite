@@ -7,7 +7,6 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import ImgHost from './ImgHost.jsx';
-
 import BlogItem from './BlogItem.jsx'
 import CircularProgress from 'material-ui/lib/circular-progress';
 import GridList from 'material-ui/lib/grid-list/grid-list';
@@ -16,7 +15,11 @@ import StarBorder from 'material-ui/lib/svg-icons/toggle/star-border';
 import IconButton from 'material-ui/lib/icon-button';
 import randomColor from './utils/randomColor.jsx';
 import Avatar from 'material-ui/lib/avatar';
+import Paper from 'material-ui/lib/paper';
 
+import CategoryBlock from './CategoryBlock.jsx';
+
+var uuid = require('uuid');
 
 /**this is a block to show a blog with a bannar
  */
@@ -28,13 +31,15 @@ export default class Home extends React.Component {
             avatar : this.props.avatar,
             background : "http://pic.qiantucdn.com/58pic/11/25/25/46j58PICKMh.jpg",
             blogTitle: "用react搞定解耦博客站",
+            blogByCategoryUrl:this.props.blogByCategoryUrl,
             blogSubTitle:"To handle blog site with react trick",
-            data : false
+            data : false,
+            url:this.props.url,
+            loading:true
         }
     };
 
     componentDidMount() {
-        this.setState({loading:true});
         $.getJSON({
             url: this.props.url,
             useDefaultXhrHeader: false,
@@ -75,10 +80,6 @@ export default class Home extends React.Component {
             }
         };
 
-        var divStyle = {
-            background :randomColor.generate()
-        };
-
         var bannerStyle = {
             width :"100%",
             top:50
@@ -91,15 +92,11 @@ export default class Home extends React.Component {
             bottom:0,
             margin: "auto"
         };
-        var containerStyle = {
-            width: '100%',
-            height: '0',
-            'paddingBottom': '30%',
-            overflow: 'hidden'
-        };
 
-        var imgStyle = {
-            width: '100%'
+        var absoluteDiv = {
+            margin:20,
+            marginTop:50,
+            position: "absolute"
         };
 
         if (data) {
@@ -112,20 +109,13 @@ export default class Home extends React.Component {
                             }
                         ><ImgHost src="/pic/Material-design.jpg" height="50%"/>
                             <div style ={avatarStyle}>
-                                <Avatar style ={avatarStyle} src={this.state.avatar} size = '120'/>
+                                <Avatar style ={avatarStyle} src={this.state.avatar} size = {120}/>
                             </div>
                         </CardMedia>
                     </div>
-                    <GridList
-                        cols={2}
-                        cellHeight={200}
-                        padding={1}
-                        style={styles.gridList}
-                    >
-                        {this.state.data.map(blog => (
-                            <div style={divStyle}> 首页工程中,从菜单进吧~ </div>
-                        ))}
-                    </GridList>
+                    {this.state.data.map(category => (
+                        <CategoryBlock category={category} blogByCategoryUrl={this.state.blogByCategoryUrl} key={uuid.v1()} pageChangeHandler = {this.props.pageChangeHandler}/>
+                    ))}
                 </div>
             );
         } else {
@@ -134,4 +124,5 @@ export default class Home extends React.Component {
             )
         }
     }
+
 }

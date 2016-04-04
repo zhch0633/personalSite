@@ -6,8 +6,10 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import BlogNavBar from './NavBar.jsx'
 import CircularProgress from 'material-ui/lib/circular-progress';
 import Home from './Home.jsx';
+import TitleBar from './TitleBar.jsx';
 
 import randomColor from './utils/randomColor.jsx';
+var uuid = require('uuid');
 
 var $ = require ('jquery');
 
@@ -24,9 +26,10 @@ export default class App extends React.Component {
             location : window.location,
             blogListUrl : this.props.url + "api/blogs",
             blogPostUrl : this.props.url + "api/post?id=",
+            categoryUrl : this.props.url + "api/categories",
+            blogByCategoryUrl : this.props.url + "api/blogs?category=",
             avatar:this.props.avatar,
             firstLoad :true,
-
             page : window.location.pathname,
             blogID:"",
             titleBarTitle : "残相君.blog"
@@ -97,14 +100,14 @@ export default class App extends React.Component {
 
         };
 
-        var mainContainer = <CircularProgress/>;
+        var mainContainer;
 
         //prepare for blog page or other pages
         if(this.state.loading){
             mainContainer = <CircularProgress style = {containerStyle}/>;
             this.state.titleBarTitle = "读取中..."
         } else if(this.state.page == "/home") {
-            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} url={this.state.blogListUrl} style = {containerStyle} />;
+            mainContainer = <Home avatar = {this.state.avatar} pageChangeHandler={this.handlePageChange} url={this.state.categoryUrl} blogByCategoryUrl = {this.state.blogByCategoryUrl} style = {containerStyle} />;
             this.state.titleBarTitle = "残相君.home"
         } else if(this.state.page == "/blog"){
             mainContainer = <Blog avatar = {this.state.avatar} blogContent = {this.state.blogContent} pageChangeHandler={this.handlePageChange} style = {containerStyle}/>;
@@ -121,21 +124,7 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <AppBar
-                    title={this.state.titleBarTitle}
-                    iconClassNameRight="muidocs-icon-navigation-expand-more"
-                    onLeftIconButtonTouchTap = {this.handleClickNavBar}
-                    style = {appBarStyle}
-                    zDepth = {2}
-                />
-                <LeftNav
-                    style={navStyle}
-                    docked={false}
-                    width={400}
-                    open={this.state.open}
-                    onRequestChange={open => this.setState({open})}
-                ><BlogNavBar url = {this.state.blogListUrl}  pageChangeHandler = {this.handlePageChange} avatar = {this.state.avatar}/>
-                </LeftNav>
+                <TitleBar title = {this.state.titleBarTitle} blogListUrl={this.state.blogListUrl} pageChangeHandler={this.handlePageChange} avatar={this.state.avatar} />
                 {mainContainer}
             </div>
         )
@@ -197,7 +186,8 @@ export default class App extends React.Component {
     shiftToHome = () => {
         this.setState(
             {
-                page:"/home"
+                page:"/home",
+                open:false
             }
         )
     };

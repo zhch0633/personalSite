@@ -19,6 +19,8 @@ import IconButton from 'material-ui/lib/icon-button';
 import FontIcon from 'material-ui/lib/font-icon';
 import Colors from 'material-ui/lib/styles/colors';
 import randomColor from './utils/randomColor.jsx';
+import FlatButton from 'material-ui/lib/flat-button';
+var uuid = require('uuid');
 
 var $ = require ('jquery');
 
@@ -71,6 +73,12 @@ export default class BlogItem extends React.Component {
         var footColor = {
             backgroundColor: "#EEEEEE"
         };
+
+        var buttonStyle = {
+            marginTop: 12,
+            marginBottom: 12
+        };
+
         if(showHover) {
             return (
                 <div onClick={this.handleClick} style={noMarginStyle}>
@@ -79,17 +87,22 @@ export default class BlogItem extends React.Component {
                         onMouseOver={this.onMouseOver}
                     > {this.state.blog.title}
                     </ListItem>
-                    <ListItem style = {footColor}>
-                    <CardText  style = {footColor}>
-                        <div dangerouslySetInnerHTML={{__html:this.state.blog.brief}}></div>
-                    </CardText>
-                    <CardHeader
-                        style = {footColor}
-                        title= "残相君~"
-                        subtitle={this.state.blog.publishedDate}
-                        avatar={this.state.avatar}
-                    >
-                    </CardHeader>
+                    <ListItem style = {footColor} innerDivStyle={noMarginStyle}>
+                        <CardText  style = {footColor}>
+                            <div dangerouslySetInnerHTML={{__html:this.state.blog.brief}}></div>
+                        </CardText>
+
+                        <div>
+                            <FlatButton label="标签:" style={buttonStyle} disabled={true}/>
+                            {this.state.blog.categories.map(item =><FlatButton  key={uuid.v1()} label={item.name} style={buttonStyle} onClick={this.handleCategoryClick} primary={true}/>)}
+                        </div>
+                        <CardHeader
+                            style = {footColor}
+                            title= "残相君~"
+                            subtitle={this.state.blog.publishedDate.substring(0,10)}
+                            avatar={this.state.avatar}
+                        >
+                        </CardHeader>
                     </ListItem>
                 </div>
             );
@@ -104,8 +117,18 @@ export default class BlogItem extends React.Component {
         }
     }
 
-    handleClick = () =>{
-        this.props.pageChangeHandler("/blog",this.state.blog.id);
+    handleCategoryClick = (event) =>{
+        event.handled = true;
+    };
+
+    handleClick = (event) =>{
+        if(event.handled){
+            console.log("cannot support this click !");
+            event.handled = false;
+            this.props.pageChangeHandler("/home");
+        } else {
+            this.props.pageChangeHandler("/blog", this.state.blog.id);
+        }
     };
 
     onMouseOver = (event) =>{
